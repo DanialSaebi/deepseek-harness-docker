@@ -28,7 +28,7 @@ RUN echo "==> Installing pnpm dependencies..." \
     && pnpm config set fetch-retry-factor 2 \
     && pnpm config set fetch-retry-mintimeout 10000 \
     && pnpm config set fetch-retry-maxtimeout 120000 \
-    && pnpm install --include=optional \
+    && pnpm install \
     && echo "==> Dependencies installed."
 
 # 4. Build
