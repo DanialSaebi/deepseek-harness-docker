@@ -1,14 +1,16 @@
 services:
   deepseek-harness:
     build: .
-
     container_name: deepseek-harness
 
     ports:
-      - "${PORT:-3080}:3080"
+      - "${PORT:-3000}:3000"
+
+    environment:
+      TRUSTED_HOST: "${TRUSTED_HOST:-localhost:3000}"
 
     volumes:
-      - ./data:/data
+      - ./data:/root/.dsh
 
     restart: unless-stopped
 

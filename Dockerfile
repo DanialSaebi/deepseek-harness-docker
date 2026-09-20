@@ -9,6 +9,7 @@ RUN echo "==> Installing system dependencies..." \
         git \
         ca-certificates \
         build-essential \
+        nginx \
     && rm -rf /var/lib/apt/lists/* \
     && update-ca-certificates \
     && npm install -g pnpm@11.7.0 \
@@ -36,10 +37,17 @@ RUN echo "==> Building DeepSeek Harness..." \
     && pnpm run build \
     && echo "==> Build completed."
 
-# Runtime configuration
-ENV HOST=0.0.0.0
+# 5. Configure nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# 6. Runtime configuration
+ENV DSH_PORT=3080
+ENV PORT=3000
+ENV TRUSTED_HOST=localhost:3000
 
 EXPOSE 3000
 
-# Start DeepSeek Harness web UI
-CMD ["pnpm", "dsh", "web"]
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
