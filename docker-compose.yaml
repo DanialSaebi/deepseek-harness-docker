@@ -5,7 +5,7 @@ services:
     container_name: deepseek-harness
 
     ports:
-      - "${PORT:-3080}:3080"
+      - "${PORT:-3080}:127.0.0.1:3080"
 
     volumes:
       - ./data:/data
