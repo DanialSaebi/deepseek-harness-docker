@@ -1,10 +1,14 @@
 services:
   deepseek-harness:
     build: .
+
     container_name: deepseek-harness
 
     ports:
       - "${PORT:-3000}:3000"
+
+    volumes:
+      - ./data:/data
 
     restart: unless-stopped
 
