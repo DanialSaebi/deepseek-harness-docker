@@ -1,0 +1,15 @@
+services:
+  deepseek-harness:
+    build: .
+    container_name: deepseek-harness
+
+    ports:
+      - "${PORT:-3000}:3000"
+
+    restart: unless-stopped
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
